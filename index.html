@@ -23,7 +23,7 @@
             background-color: var(--light);
             color: var(--text);
             margin: 0; padding: 0;
-            overflow-x: hidden; /* 横から出る画像によるハミ出し防止 */
+            overflow-x: hidden;
             background-image: url("data:image/svg+xml,%3Csvg width='500' height='250' viewBox='0 0 500 250' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='0' y='120' fill='%23A799B7' fill-opacity='0.08' font-family='cursive' font-size='32' font-style='italic' transform='rotate(-15, 250, 125)'%3EMega urtr giga . . . Mega urtr giga . . .%3C/text%3E%3C/svg%3E");
             background-repeat: repeat;
             background-attachment: fixed;
@@ -42,13 +42,11 @@
 
         .container { max-width: 550px; margin: 0 auto; padding: 2rem 1.2rem; }
 
-        /* カードと画像の親要素 */
         .card-wrapper {
             position: relative;
             margin-bottom: 5rem;
         }
 
-        /* カード本体 */
         .reveal { 
             position: relative;
             background: white;
@@ -64,10 +62,10 @@
 
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* 横から飛び出す画像の設定 */
+        /* 画像スライドアニメーションの設定 */
         .slide-img {
             position: absolute;
-            width: 180px; /* 画像のサイズ */
+            width: 220px;
             height: auto;
             border-radius: 10px;
             border: 4px solid white;
@@ -78,47 +76,19 @@
             pointer-events: none;
         }
 
-        /* 奇数（左から） */
-        .img-left {
-            left: -140px;
-            top: -20px;
-            transform: translateX(-100px) rotate(-15deg);
-        }
+        .img-left { left: -180px; top: -40px; transform: translateX(-100px) rotate(-15deg); }
+        .img-right { right: -180px; top: 20px; transform: translateX(100px) rotate(15deg); }
+        .img-left-low { left: -200px; bottom: -60px; transform: translateX(-100px) rotate(-10deg); }
 
-        /* 偶数（右から） */
-        .img-right {
-            right: -140px;
-            bottom: -20px;
-            transform: translateX(100px) rotate(15deg);
-        }
+        .active .img-left { opacity: 1; transform: translateX(0) rotate(-5deg); }
+        .active .img-right { opacity: 1; transform: translateX(0) rotate(5deg); }
+        .active .img-left-low { opacity: 1; transform: translateX(0) rotate(-8deg); }
 
-        /* 3枚目（左から下め） */
-        .img-left-low {
-            left: -160px;
-            bottom: -30px;
-            transform: translateX(-100px) rotate(-10deg);
-        }
+        @media (max-width: 1100px) { .slide-img { display: none; } }
 
-        /* アクティブ時の動き */
-        .card-wrapper.active .img-left { opacity: 1; transform: translateX(0) rotate(-5deg); }
-        .card-wrapper.active .img-right { opacity: 1; transform: translateX(0) rotate(5deg); }
-        .card-wrapper.active .img-left-low { opacity: 1; transform: translateX(0) rotate(-8deg); }
-
-        /* スマホ等では画像を非表示 */
-        @media (max-width: 1000px) {
-            .slide-img { display: none; }
-        }
-
-        /* 猫アニメーション（元の設定） */
-        .walking-cat {
-            position: absolute; top: -42px; width: 55px; height: 45px;
-            animation: walk-path 20s linear infinite; z-index: 10; cursor: pointer;
-        }
-        @keyframes walk-path {
-            0% { left: -5%; transform: scaleX(1); }
-            50% { left: 90%; transform: scaleX(-1); }
-            100% { left: -5%; transform: scaleX(1); }
-        }
+        /* 猫アニメーション */
+        .walking-cat { position: absolute; top: -42px; width: 55px; height: 45px; animation: walk-path 20s linear infinite; z-index: 10; cursor: pointer; }
+        @keyframes walk-path { 0% { left: -5%; transform: scaleX(1); } 50% { left: 90%; transform: scaleX(-1); } 100% { left: -5%; transform: scaleX(1); } }
         .walking-cat svg { fill: var(--primary); }
         .leg-1 { animation: leg-move-1 0.4s steps(2) infinite; }
         .leg-2 { animation: leg-move-2 0.4s steps(2) infinite; }
@@ -138,7 +108,7 @@
 <body>
 
 <header>
-    <span style="font-size: 0.6rem; opacity: 0.6; letter-spacing: 0.1rem; display: block; margin-bottom: 0.5rem;">Unofficial Fan-made Site</span>
+    <span style="font-size: 0.6rem; opacity: 0.6; display: block; margin-bottom: 0.5rem;">Unofficial Fan-made Site</span>
     <h1 class="main-visual">Mega urtr giga</h1>
     <span class="sub-name">メガ・ウルトラギガ</span>
     <div class="fanmark">ファンマ : 👊💜</div>
@@ -146,11 +116,10 @@
 
 <div class="container">
     <div class="card-wrapper">
-        <img src="https://images.weserv.nl/?url=https://raw.githubusercontent.com/otofune/img-hosting/main/mega0.png" class="slide-img img-left" alt="">
-        
+        <img src="img0.png" class="slide-img img-left" alt="">
         <div class="reveal">
             <div class="walking-cat">
-                <svg viewBox="0 0 55 45"><path d="M12,20 Q6,15 9,10" stroke="currentColor" stroke-width="2.8" fill="none" /><rect x="12" y="15" width="24" height="14" rx="7" /><circle cx="36" cy="19.5" r="8" /><path d="M30,13 L33,6 L38,13 Z" /><rect class="leg-1" x="32" y="26" width="3" height="8" rx="1.5" /><rect class="leg-2" x="14" y="26" width="3" height="8" rx="1.5" /></svg>
+                <svg viewBox="0 0 55 45"><path d="M12,20 Q6,15 9,10" stroke="currentColor" stroke-width="2.8" fill="none" /><rect x="12" y="15" width="24" height="14" rx="7" /><circle cx="36" cy="19.5" r="8" /><rect class="leg-1" x="32" y="26" width="3" height="8" rx="1.5" /><rect class="leg-2" x="14" y="26" width="3" height="8" rx="1.5" /></svg>
             </div>
             <div class="mcd-badge"><i class="fas fa-cat"></i> 週5マック通いの猫</div>
             <div class="profile-box">語尾が「ニャン」の猫系ストリーマー。<br>とにかく元気いっぱいだニャン！</div>
@@ -160,7 +129,8 @@
     </div>
 
     <div class="card-wrapper">
-        <img src="https://images.weserv.nl/?url=https://raw.githubusercontent.com/otofune/img-hosting/main/mega1.png" class="slide-img img-right" alt="">
+        <img src="img1.png" class="slide-img img-right" alt="">
+        <img src="img2.png" class="slide-img img-left-low" alt="">
         
         <div class="reveal">
             <h2><i class="fas fa-link"></i> LINK LIST</h2>
@@ -171,8 +141,6 @@
                 <a href="https://forms.gle/9zrAg8KVikACMqfP9" class="btn btn-contact" target="_blank"><i class="fas fa-envelope"></i> <span>編集者に連絡</span></a>
             </div>
         </div>
-
-        <img src="https://images.weserv.nl/?url=https://raw.githubusercontent.com/otofune/img-hosting/main/mega2.png" class="slide-img img-left-low" alt="">
     </div>
 </div>
 
