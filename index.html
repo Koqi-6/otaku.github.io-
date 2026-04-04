@@ -17,6 +17,37 @@
 
 <style>
 
+/* PCでもスマホでも綺麗に見える動画設定 */
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9比率 */
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    
+    /* PC表示用の調整 */
+    max-width: 100%;     /* 基本は横幅いっぱい */
+    margin-left: auto;   /* 中央寄せ */
+    margin-right: auto;  /* 中央寄せ */
+}
+
+/* PC（画面が広い時）だけ動画の最大サイズを制限する設定 */
+@media (min-width: 768px) {
+    .video-wrapper {
+        max-width: 500px; /* PCで見た時にデカすぎないサイズに固定 */
+    }
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+}
+
+
 /* 写真と余白の設定 */
 .image-box {
     text-align: center;
@@ -420,6 +451,15 @@ footer { text-align: center; padding: 4rem 2rem; font-size: 0.7rem; color: var(-
 </div>
 
 <div class="image-box"><img src="img1.png" style="transform: rotate(3deg);"></div>
+<div class="reveal">
+    <h2 style="margin-top: 0;"><i class="fab fa-youtube"></i> LATEST VIDEO</h2>
+    <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed?listType=playlist&list=UU4F7X1pAmS4yFlzOYG5G-zA" 
+                title="Latest Video" 
+                allowfullscreen>
+        </iframe>
+    </div>
+</div>
 
 <h2><i class="fas fa-link"></i> LINK LIST</h2>
 
